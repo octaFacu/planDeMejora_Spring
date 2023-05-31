@@ -3,13 +3,14 @@ package com.ejemplo.ejemploSpring.entidades;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Collection;
+
 
 //@Data
 @Getter
 @Setter
-//@NoArgsConstructor
-@ToString
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Libro {
 
@@ -22,8 +23,16 @@ public class Libro {
 
     private int anioPublicacion;
 
-    private String autor;
+    @ManyToMany()
+    @JoinTable(
+            name = "libro_autor",
+            joinColumns = @JoinColumn(name = "libro_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "autor_id",referencedColumnName = "id")
+    )
+    private Collection<Autor> autor;
 
-    private String editorial;
+    @ManyToOne
+    @JoinColumn(name = "editorial_id")
+    private Editorial editorial;
 
 }

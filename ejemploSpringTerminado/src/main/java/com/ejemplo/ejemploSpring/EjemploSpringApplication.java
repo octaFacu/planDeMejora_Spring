@@ -9,20 +9,20 @@ public class EjemploSpringApplication {
 
 	public static void main(String[] args) {
 
-		//SpringApplication.run(EjemploSpringApplication.class, args);
+		SpringApplication.run(EjemploSpringApplication.class, args);
 
 		/*
 		Libro l1 = new Libro();
 		l1.setAnioPublicacion(1999);
 		System.out.println(l1.toString());
-		*/
+
 
 		Libro l1 = Libro.builder()
 				.anioPublicacion(1960)
 				.titulo("Titulo uno")
 				.build();
 
-		System.out.println(l1.toString());
+		System.out.println(l1.toString());*/
 
 
 
