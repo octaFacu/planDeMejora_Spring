@@ -4,5 +4,5 @@ import com.ejemplo.ejemploSpring.entidades.Libro;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RepositorioLibro extends GenericRepository<Libro, Long>{
+public interface RepositorioLibro extends RepositorioGenerico<Libro,Long>{
 }

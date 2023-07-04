@@ -1,44 +1,41 @@
 package com.ejemplo.ejemploSpring.servicios;
 
-import com.ejemplo.ejemploSpring.repositorios.GenericRepository;
-import jakarta.transaction.Transactional;
+import com.ejemplo.ejemploSpring.entidades.Autor;
+import com.ejemplo.ejemploSpring.entidades.Base;
+import com.ejemplo.ejemploSpring.repositorios.RepositorioAutor;
+import com.ejemplo.ejemploSpring.repositorios.RepositorioGenerico;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class GenericServiceImpl<T, ID extends Serializable> implements GenericService<T, ID> {
+public abstract class ServicioGenericoImpl<T extends Base, ID extends Serializable> implements ServicioGenerico<T,ID> {
 
     @Autowired
-    GenericRepository<T,ID> repository;
+    RepositorioGenerico<T,ID> repository;
 
     @Override
-    public T findById(ID id) throws Exception {
-       try {
-           Optional<T> entity = repository.findById(id);
-           return entity.get();
-       }catch (Exception e){
-           throw new Exception(e.getMessage());
-       }
-    }
-
-    @Override
-    @Transactional
     public List<T> findAll() throws Exception {
         try {
-            List<T> entitys = repository.findAll();
-            return entitys;
+            List<T> entities = repository.findAll();
+            return entities;
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
     }
 
     @Override
-    @Transactional
+    public T findById(ID id) throws Exception {
+        try {
+            Optional<T> entity = repository.findById(id);
+            return entity.get();
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    @Override
     public T save(T entity) throws Exception {
         try {
             entity = repository.save(entity);
@@ -49,7 +46,6 @@ public abstract class GenericServiceImpl<T, ID extends Serializable> implements 
     }
 
     @Override
-    @Transactional
     public T update(ID id, T entity) throws Exception {
         try {
             Optional<T> entidad = repository.findById(id);
@@ -62,7 +58,6 @@ public abstract class GenericServiceImpl<T, ID extends Serializable> implements 
     }
 
     @Override
-    @Transactional
     public void deleteById(ID id) throws Exception {
         try {
             repository.deleteById(id);
@@ -70,20 +65,4 @@ public abstract class GenericServiceImpl<T, ID extends Serializable> implements 
             throw new Exception(e.getMessage());
         }
     }
-
-    @Override
-    @Transactional
-    public Page<T> findAll(Pageable pageable) throws Exception {
-
-        try {
-
-            Page<T> entities = repository.findAll(pageable);
-            return entities;
-
-        }catch(Exception e) {
-
-            throw new Exception(e.getMessage());
-        }
-    }
-
 }

@@ -1,29 +1,27 @@
 package com.ejemplo.ejemploSpring.entidades;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Collection;
 
 
-//@Data
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Libro {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Libro extends Base{
 
     @Column(name = "nombre_libro")
     private String titulo;
 
     private int anioPublicacion;
 
-    @ManyToMany()
+    @ManyToMany
     @JoinTable(
             name = "libro_autor",
             joinColumns = @JoinColumn(name = "libro_id",referencedColumnName = "id"),
